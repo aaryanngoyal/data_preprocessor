@@ -1,5 +1,6 @@
 import numpy as np 
 import pandas as pd
+import utils
 
 from sklearn.impute import SimpleImputer
 from sklearn.impute import IterativeImputer
@@ -10,21 +11,22 @@ from preprocessing.understand_data import shape
 
 def mean_imputation(df):
     
+    num_col = utils.get_numeric_columns(df)
     si = SimpleImputer(strategy='mean')
-    df_shape = shape(df)
-    if df_shape[1] == 1:
-        return si.fit_transform(df.iloc[:, 0])   
+    if num_col in df.columns:
+        si.fit_transform(df[num_col])   
 
 def median_imputation(df):
     
+    num_col = utils.get_numeric_columns(df)
     si = SimpleImputer(strategy='median')
-    df_shape = shape(df)
-    if df_shape[1] == 1:
-        return si.fit_transform(df.iloc[:, 0])
+    if num_col in df.columns:
+        si.fit_transform(df[num_col])
 
 def random_imputation(df):
     
-    return df.iloc[:,0].fillna(-999)
+    num_col = utils.get_numeric_columns(df)
+    return num_col.fillna(-999)
 
 def end_of_dist(df):
     
@@ -35,14 +37,14 @@ def end_of_dist(df):
 
 def mode_imputation(df):
 
+    cat_col = utils.get_categorical_columns
     si = SimpleImputer(strategy='mode')
-    df_shape = shape(df)
-    if df_shape[1] == 1:
-        return si.fit_transform(df.iloc[:, 0])
+    if cat_col in df.columns:
+        si.fit_transform(df[cat_col])
 
 def missing_feature(df):
 
-    df.iloc[:, 0] = df.iloc[:, 0].fillna("Missing") 
+    df.iloc[:, 0] = cat_col.fillna("Missing") 
 
 def knn_imputer(df):
     
