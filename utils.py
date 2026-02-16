@@ -1,5 +1,4 @@
 import pandas as pd
-from Scipy.stats import normaltest
 
 ### DATA INSPECTION HELPER ###
 

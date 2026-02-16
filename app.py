@@ -59,3 +59,15 @@ if st.session_state["df"] is not None:
 
     st.markdown("### Missing value %")
     st.dataframe(utils.missing_value_per(df))
+
+    ### HANDLING MISSING VALUES ###
+
+    st.markdown("# HANDLING MISSING VALUES")
+
+    st.sidebar.markdown("### Choose Column for Imputation")
+    
+    st.sidebar.markdown("### Numeric Column")
+    st.sidebar.selectbox("Features", list(utils.get_numeric_columns(df).columns) + ["Entire Dataset"])
+
+    st.sidebar.markdown("### Categorical Column")
+    st.sidebar.selectbox("Features", list(utils.get_categorical_columns(df).columns) + ["Entire Dataset"])
