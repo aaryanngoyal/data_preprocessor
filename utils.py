@@ -1,4 +1,6 @@
 import pandas as pd
+from scipy.stats import shapiro
+from scipy.stats import kstest
 
 ### DATA INSPECTION HELPER ###
 
@@ -75,5 +77,10 @@ def missing_value_per(df):
     return (df.isnull().sum() / df.shape[0]) * 100
 
 # check is dataset is normalized
-def check_normalized(df):
-    pass
+def check_normally_distributed_shapiro(df, column):
+    stat, p = shapiro(df[column])
+    return stat, p
+
+def check_normally_distributed_kstest(df, column):
+    stat, p = kstest(df[column], 'norm')
+    return stat, p
