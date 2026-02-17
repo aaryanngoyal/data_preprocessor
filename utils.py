@@ -41,9 +41,22 @@ def get_categorical_columns(df):
     return cat_col
 
 # get datetime columns
-def get_datetime_columns(df):
-    pass
-    
+def get_datetime_columns(df, threshold=0.7):
+    datetime_col =[]
+    for i in df.columns:
+
+        if pd.api.types.is_datetime64_any_dtype(df[i]):
+            datetime_col.append(i)
+            continue
+
+        if df[i].dtypes == 'object':
+            converted = pd.to_datetime(df[i], errors='coerce')
+
+            if converted.notna().mean() >= threshold:
+                datetime_col.append(i)
+            
+    return df[datetime_col]
+
 # get boolean columns
 def get_bool_columns(df):
     bool_col = df.select_dtypes(include=['bool'])
