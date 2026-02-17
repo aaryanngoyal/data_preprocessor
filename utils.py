@@ -84,3 +84,9 @@ def check_normally_distributed_shapiro(df, column):
 def check_normally_distributed_kstest(df, column):
     stat, p = kstest(df[column], 'norm')
     return stat, p
+
+def cardinality_cat_col(df):
+    return get_categorical_columns(df).nunique()
+
+def cardinality_single_cat(df, column):
+    return df[column].nunique()
