@@ -1,6 +1,7 @@
 import numpy as np 
 import pandas as pd
 
+# finding outlier using z score
 def finding_outlier_z_score(df, column):
     df_mean = df[column].mean()
     df_std = df[column].std()
@@ -10,6 +11,7 @@ def finding_outlier_z_score(df, column):
 
     return df[df[column] > highest_allowed | df[column] < lowest_allowed]
 
+# outlier removal using z score - trimming 
 def outlier_removal_zscore_trimming(df, column):
     df_mean = df[column].mean()
     df_std = df[column].std()
@@ -20,6 +22,7 @@ def outlier_removal_zscore_trimming(df, column):
     new_df = df[(df[column] < highest_allowed) & (df[column] > lowest_allowed)]
     return new_df
 
+# outlier removal using z score - capping
 def outlier_removal_zscore_capping(df, column):
     df_mean = df[column].mean()
     df_std = df[column].std()
@@ -27,6 +30,7 @@ def outlier_removal_zscore_capping(df, column):
     df[column + "_zscore"] = (df[column] - df_mean) / df_std
     return df[(df[column + "_zscore"] < 3) & (df[column + "_zscore"] > -3)] 
 
+# finding outlier using iqr
 def finding_outlier_iqr(df, column):
     per25 = df[column].quantile(0.25)
     per75 = df[column].quantile(0.75)
@@ -38,6 +42,7 @@ def finding_outlier_iqr(df, column):
 
     return df[df[column] > up_lim | df[column] < low_lim]
 
+# outlier removal using iqr - trimming
 def outlier_removal_iqr_trimming(df, column):
     per25 = df[column].quantile(0.25)
     per75 = df[column].quantile(0.75)
@@ -49,6 +54,7 @@ def outlier_removal_iqr_trimming(df, column):
 
     return df[df[column] < up_lim & df[column] > low_lim]
 
+# outlier removal using iqr - capping
 def outlier_removal_iqr_capping(df, column):
     per25 = df[column].quantile(0.25)
     per75 = df[column].quantile(0.75)
@@ -71,18 +77,21 @@ def outlier_removal_iqr_capping(df, column):
     )
     return df_cap
 
+# finding outlier using percentile
 def finding_outlier_percentile(df, column):
     up_lim = df[column].quantile(0.99)
     low_lim = df[column].quantile(0.01)
 
     return df[df[column] > up_lim | df[column] < low_lim]
 
+# outlier removal using percentile - trimming
 def outlier_removal_percentile_trimming(df, column):
     up_lim = df[column].quantile(0.99)
     low_lim = df[column].quantile(0.01)
 
     return df[(df[column] < up_lim) & df[column] < low_lim]
 
+# outlier removal using percentile - capping
 def outlier_removal_percentile_capping(df, column):
     up_lim = df[column].quantile(0.99)
     low_lim = df[column].quantile(0.01)
