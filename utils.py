@@ -1,6 +1,4 @@
 import pandas as pd
-from scipy.stats import shapiro
-from scipy.stats import kstest
 
 ### DATA INSPECTION HELPER ###
 
@@ -76,17 +74,14 @@ def column_dtypes(df):
 def missing_value_per(df):
     return (df.isnull().sum() / df.shape[0]) * 100
 
-# check is dataset is normalized
-def check_normally_distributed_shapiro(df, column):
-    stat, p = shapiro(df[column])
-    return stat, p
-
-def check_normally_distributed_kstest(df, column):
-    stat, p = kstest(df[column], 'norm')
-    return stat, p
-
+# finds cardinality of categorical all columns
 def cardinality_cat_col(df):
     return get_categorical_columns(df).nunique()
 
+# finds cardinality of categorical single columns
 def cardinality_single_cat(df, column):
     return df[column].nunique()
+
+# finds skewness of column
+def check_skew(df, column):
+    return df[column].skew()

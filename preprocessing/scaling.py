@@ -12,7 +12,7 @@ from sklearn.preprocessing import RobustScaler
 def standardization(df, column, mean, std):
     ss = StandardScaler(with_mean=mean, with_std=std)
     df[column] = ss.fit_transform(df[[column]])
-    return df[column]
+    return df
 
     ### NORMALIZATION ###
 
@@ -20,16 +20,16 @@ def standardization(df, column, mean, std):
 def min_max_scale(df, column):
     min_max = MinMaxScaler()
     df[column] = min_max.fit_transform(df[[column]])
-    return df[column]
+    return df
 
 # max abs scaling
 def max_abs_scale(df, column):
     max_abs = MaxAbsScaler()
     df[column] = max_abs.fit_transform(df[[column]])
-    return df[column]
+    return df
 
 # robust scaling
 def robust_scale(df, column):
     robust = RobustScaler()
     df[column] = robust.fit_transform(df[[column]])
-    return df[column]
+    return df
