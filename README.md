@@ -58,7 +58,7 @@ data_preprocessor/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/data_preprocessor.git
+git clone https://github.com/aaryanngoyal/data_preprocessor.git
 cd data_preprocessor
 ```
 
@@ -99,4 +99,4 @@ See `requirements.txt` for full list.
 
 ## Live Demo
 
-[Link to Streamlit deployment]
+[https://data-preprocesorr.streamlit.app/]
